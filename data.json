@@ -1,0 +1,76 @@
+{
+  "checkpoints": {
+    "-type": "array",
+    "checkpoint": [
+      {
+        "check-interval-id": {
+          "-type": "integer",
+          "#text": "5"
+        },
+        "id": {
+          "-type": "integer",
+          "#text": "9795"
+        },
+        "is-monitoring-enabled": {
+          "-type": "boolean",
+          "#text": "true"
+        },
+        "status": {
+          "-type": "integer",
+          "#text": "1"
+        },
+        "status-changed-on": {
+          "-type": "datetime",
+          "#text": "2008-12-29T17:54:18-06:00"
+        },
+        "url": "http://www.mojohelpdesk.com/"
+      },
+      {
+        "check-interval-id": {
+          "-type": "integer",
+          "#text": "30"
+        },
+        "id": {
+          "-type": "integer",
+          "#text": "9794"
+        },
+        "is-monitoring-enabled": {
+          "-type": "boolean",
+          "#text": "true"
+        },
+        "status": {
+          "-type": "integer",
+          "#text": "-1"
+        },
+        "status-changed-on": {
+          "-type": "datetime",
+          "#text": "2008-06-20T22:07:20-05:00"
+        },
+        "url": "http://www.metadot.com/s"
+      },
+      {
+        "check-interval-id": {
+          "-type": "integer",
+          "#text": "30"
+        },
+        "id": {
+          "-type": "integer",
+          "#text": "9793"
+        },
+        "is-monitoring-enabled": {
+          "-type": "boolean",
+          "#text": "true"
+        },
+        "status": {
+          "-type": "integer",
+          "#text": "1"
+        },
+        "status-changed-on": {
+          "-type": "datetime",
+          "#text": "2009-01-09T14:01:26-06:00"
+        },
+        "url": "http://www.metadot.com/"
+      }
+    ]
+  }
+}
