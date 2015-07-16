@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+    <head>
+        <meta charset="utf-8" />
+        <title>Item List</title>
+        <script type="text/javascript"
+src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.4/
+angular.js"></script>
+        <script src="js/item.js"></script>
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href = "styles.css" rel="stylesheet">
+        <link rel="stylesheet" href="fontawesome/css/font-awesome.min.css">
+    </head>
+
+<body ng-app = "ItemsApp">
+  <div ng-controller="MainCtrl">
+    <nav class="navbar navbar-inverse">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Checkpoint's app</a>
+        </div>
+
+          <div ng-if="!connected"> <!-- if the user is not logged in -->
+          <form class="navbar-form navbar-right" role="Login" name="loginForm" ng-submit="connect()">
+            <div class="form-group" >
+              <input type="text" ng-model="username" name="username" required class="form-control" placeholder="Username" id="username">
+              <input type="password" ng-model="password" name="password" required class="form-control" placeholder="password" id="password">
+              <button type="submit" value="OK" ng-disabled="loginForm.$invalid" class="btn btn-success"><span class="glyphicon glyphicon-user"></span> Sign in </button>
+            </div>
+          </form>
+        </div>
+        <div ng-if="connected">
+          <form class="navbar-form navbar-right" ng-submit="logout()">
+            <div class="form-group" >
+              <button type="logout" class="btn btn-info" >Sign out </button>
+            </div>
+          </div>
+        </form>
+
+
+      </div>
+    </nav>
+
+
+<section class="row">
+<form name="itemForm" ng-submit="addItem()" class="form-horizontal"><!-- calls the function addItem() -->
+
+<section class= "col-sm-6">
+
+
+    <label for="id"></label>
+    <input type="hidden" type="number" ng-model="newItem.id" name="id" id="id"  />
+    <br/>
+
+
+    <div3 class="form-group">
+      <label for="intervalId" class="  col-sm-2 control-label"> Interval </label>
+      <div3 class=" col-sm-6">
+        <select ng-model="newItem.intervalId" ng-options="interval as interval.name for interval in intervals" class="form-control"></select>
+      </div3>
+    </div3>
+    <br/>
+
+    <div3 class="form-group">
+      <label for="monitoring" class="  col-sm-2 control-label">Monitoring </label>
+      <div3 class=" col-sm-6">
+        <input type="radio" id="ra1" name="radio" ng-model="newItem.monitoring" value = '1'> Yes
+        <input type="radio" id="ra2" name="radio" ng-model="newItem.monitoring" value = '0'> No
+      </div3>
+    </div3>
+      <br/>
+
+    <div3 class="form-group">
+      <label for="name"  class="  col-sm-2 control-label"> Name </label>
+      <div3 class=" col-sm-6">
+        <input type="text" ng-model = "newItem.name" name = "name" id="name"  placeholder="Enter a name.." class="form-control"/>
+      </div3>
+    </div3>
+    <br/>
+
+    <div3 class="form-group">
+      <label for="status" class="  col-sm-2 control-label"> Status</label>
+      <div3 class=" col-sm-6">
+        <input type="radio" id="rad1" name="status" ng-model="newItem.status"  value = '1' checked   > 1
+        <input type="radio" id="rad2"  name="status" ng-model="newItem.status" value = '0'   > 0
+        <input type="radio" id="rad3" name="status" ng-model="newItem.status"  value = '-1' > -1
+      </div3>
+    </div3>
+    <br/>
+
+
+    <div3 class="form-group">
+      <label for="statusDate" class="  col-sm-2 control-label"> Date</label>
+      <div3 class=" col-sm-6">
+        <input type="date" ng-model="newItem.statusDate" name="statusDate" id="statusDate" class="form-control" />
+      </div3>
+    </div3>
+    <br/>
+
+
+    <div3 class="form-group">
+      <label for="statusTime"  class="  col-sm-2 control-label"> Time</label>
+      <div3 class=" col-sm-6">
+        <input type="time" ng-model="newItem.statusTime" name="statusTime" id="statusTime" class="form-control" />
+      </div3>
+    </div3>
+    <br/>
+
+    <div3 class="form-group">
+      <label for="url"  class="  col-sm-2 control-label"> Url : </label>
+      <div3 class=" col-sm-6">
+        <input type="url" ng-model="newItem.url" name="url" id="url"class="form-control"  placeholder="http://..." />
+      </div3>
+    </div3>
+    <br/>
+
+   <div3 class="col-sm-offset-2 col-sm-6">
+      <button type="submit" value ="Submit" class="btn btn-success" /><i class="fa fa-floppy-o"></i> Save</button>
+      <button type="reset" value="reset" class="btn btn-default"><i class="fa fa-eraser"></i> Reset</button>
+      <button value="load" class="btn btn-info" ng-click="load()" ng-if="connected"><i class="fa fa-download"></i> Load the file </button>
+  </div3>
+
+  </form>
+
+</section>
+
+
+
+  <section class="col-sm-6">
+      <table class="table">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Delete</th>
+          <th>Edit</th>
+          <th>View more</th>
+          <th>Status</th>
+        </tr>
+        <tr ng-repeat="item in items"><!-- to see all the items stored -->
+        <td> {{item.id}}</td>
+        <td> {{item.name}}</td>
+        <td><button name="supprimer" value="delete" ng-click="delete(item.id)" class="btn btn-danger"> <i class="fa fa-trash-o fa-lg"></i> Delete</button> </td>
+        <td> <button name="edit" value="edit" ng-click="edit(item.id)" class="btn btn-info" > <i class="fa fa-pencil fa-fw"></i>
+                                              Edit</button></td>
+        <td><button name="viewmore" value="viewmore" class="btn btn-default" ng-click="viewmore(item.id)" ng-model="moreInfo">
+          <i class="fa fa-info"></i><a ng-if="myVar"> Less</a><a ng-if="!myVar"> More</a></button>
+        </td>
+        <td>
+          <div3 ng-switch="item.status">
+            <div3 ng-switch-when="1"><i class="green"> </i>
+            </div3>
+            <div3 ng-switch-when="0"><i class="fa fa-question fa-2x"></i>
+            </div3>
+            <div3 ng-switch-when="-1"><i class="red" > </i>
+            </div3>
+            <div3 ng-switch-default>
+            </div3>
+        </div3>
+      </td>
+      </tr>
+  </table>
+
+  </section>
+</section>
+<section class="row">
+  <section class="col-sm-offset-1 col-sm-4" class="spe" >
+
+  <div2 ng-if="myVar" class="sm-col-2" >
+    <div class="jumbotron"><p> The selected checkbox is monitoring {{var.url}}</br>
+    The monitoring interval is {{var.intervalId.name}} </br>
+    Date of the last status change {{var.statusDate}} </br>
+    Time of the last status change {{var.statusTime}}<p>
+  </div></div2>
+
+  </section>
+</section>
+
+
+</body>
+</html>
